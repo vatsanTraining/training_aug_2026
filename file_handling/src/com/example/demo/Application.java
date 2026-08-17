@@ -1,15 +1,29 @@
 package com.example.demo;
 
-import java.io.File;
 import java.util.List;
 
 import com.example.demo.exceptions.InvalidCodeException;
 import com.example.demo.services.FileService;
+import com.example.demo.services.InMemoryService;
+import com.example.demo.services.TravelService;
 
 public class Application {
 
+	
+	public static void print(TravelService service) {
+		
+		System.out.println("Printing Using =>"+service.getClass().getName());
+
+		List<TravelPackage> list = service.read();
+		
+		for(TravelPackage eachPackage: list) {
+			
+			System.out.println(eachPackage);
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		
 
@@ -37,18 +51,21 @@ public class Application {
 		
 		System.out.println(turkey.getFees());
 		
-		File file = new File("travel.txt");
 		FileService service = new FileService();
 		
-		System.out.println("Is Written :=>"+ service.writeToFile(file, turkey));
+		System.out.println("Is Written :=>"+ service.write(turkey));
 		
 		
-		List<TravelPackage> list = service.readFromFile(file);
+		print(service);
 		
-		for(TravelPackage eachPackage: list) {
-			
-			System.out.println(eachPackage);
-		}
+		InMemoryService memservice = new InMemoryService();
+		
+		
+		memservice.write(turkey);
+		memservice.write(ooty);
+		
+		
+		print(memservice);
 	}
 
 }

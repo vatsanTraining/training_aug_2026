@@ -6,14 +6,17 @@ import java.util.List;
 
 import com.example.demo.TravelPackage;
 
-public class FileService {
+public class FileService implements TravelService {
 
 	
-	public boolean writeToFile(File file, TravelPackage travel) {
+	@Override
+	public boolean write(TravelPackage travel) {
 		
 		boolean isWritten = false;
 		
 		
+		File file = new File("travel.txt");
+
 		
 		try(PrintWriter writer = new PrintWriter(new FileWriter(file, true));){
 			
@@ -33,9 +36,12 @@ public class FileService {
 		
 	}
 	
-	public List<TravelPackage>  readFromFile(File file) {
+	@Override
+	public List<TravelPackage>  read() {
 		
 		
+		File file = new File("travel.txt");
+
 		List<TravelPackage> list = new ArrayList<>();
 		
 		
