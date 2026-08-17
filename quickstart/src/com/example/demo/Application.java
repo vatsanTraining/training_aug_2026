@@ -4,8 +4,11 @@ public class Application {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
 
-		TravelPackage ooty = new TravelPackage();
+		var ooty = new TravelPackage();
+		
 	
 		ooty.setClientName("Harish");
 		ooty.setDestination("CBE");
@@ -18,7 +21,7 @@ public class Application {
 		System.out.println(ooty.toString());
 		
 		
-		LuxuryPackage turkey =new LuxuryPackage("Harish","CBE", true);
+		var turkey =new LuxuryPackage("Harish","CBE", true);
 		
 		System.out.println(turkey.getFees());
 		
