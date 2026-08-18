@@ -1,0 +1,6 @@
+Create a New Spring Boot Project with Web Depedency
+Create a model class TravelAgent with few attributes
+Create a class AgentRepository and add the annotation @respository
+Create a Class AgentService and add the annotation @Service
+create a Class AgentController and add the annotation @RestController
+Test the Application in the Browser
