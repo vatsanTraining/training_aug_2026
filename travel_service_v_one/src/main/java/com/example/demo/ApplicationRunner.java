@@ -1,25 +1,32 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.model.TravelPackage;
 import com.example.demo.services.DemoService;
-import com.example.demo.services.FileService;
+import com.example.demo.services.TravelService;
 
 @Component
 public class ApplicationRunner implements CommandLineRunner {
 
 	
 	private DemoService service;
-	private FileService fileService;
+	//private TravelService fileService;
+	private TravelService anotherService;
+	
 	private TravelPackage travel;
 	
 	
-	public ApplicationRunner(DemoService service,FileService fileService,TravelPackage travel) {
+	
+
+
+	public ApplicationRunner(DemoService service, TravelService anotherService,@Qualifier("luxury") TravelPackage travel) {
 		super();
 		this.service = service;
-		this.fileService = fileService;
+		this.anotherService = anotherService;
 		this.travel =travel;
 		System.out.println("***********  Application Runner is Initialized ***********");
 	}
@@ -34,9 +41,9 @@ public class ApplicationRunner implements CommandLineRunner {
 		travel.setClientName("Shivakumar");
 		travel.setDestination("CBE");
 		
-		fileService.write(travel);
+		anotherService.write(travel);
 		
-		fileService.read().forEach(System.out::println);
+		anotherService.read().forEach(System.out::println);
 		
 		
 	}

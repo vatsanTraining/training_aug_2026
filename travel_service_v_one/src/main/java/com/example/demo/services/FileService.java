@@ -4,11 +4,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.*;
 
 @Service
+@Primary
 public class FileService implements TravelService {
 
 	
