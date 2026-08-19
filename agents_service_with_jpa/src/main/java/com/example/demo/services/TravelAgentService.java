@@ -47,4 +47,10 @@ public class TravelAgentService {
 		
 		return mapper.toDto(found);
 	}
+
+
+	public void remove(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
 }
