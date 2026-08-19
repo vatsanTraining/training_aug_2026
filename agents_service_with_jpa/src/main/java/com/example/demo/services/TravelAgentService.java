@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.entity.TravelAgent;
 import com.example.demo.repos.AgentRepository;
+import com.example.demo.utils.TravelAgentMapper;
 
 @Service
 public class TravelAgentService {
@@ -14,28 +16,35 @@ public class TravelAgentService {
 	
 	private AgentRepository repo;
 
-	public TravelAgentService(AgentRepository repo) {
+	private TravelAgentMapper mapper;
+	
+	public TravelAgentService(AgentRepository repo,TravelAgentMapper mapper) {
 		super();
 		this.repo = repo;
+		this.mapper = mapper;
 		System.out.println(this.repo.getClass().getName());
 	}
 	
 	
-	public TravelAgent save(TravelAgent agent) {
+	public TravelAgentDto save(TravelAgentDto dto) {
 		
-		return this.repo.save(agent);
+		TravelAgent saved= this.repo.save(mapper.toEntity(dto));
+		
+		return mapper.toDto(saved);
 	}
 	
 	
-	public List<TravelAgent> findAll(){
+	public List<TravelAgentDto> findAll(){
 		
-		return this.repo.findAll();
+		return this.repo.findAll()
+				  .stream().map(mapper::toDto).toList();
 	}
 	
-	public TravelAgent findById(Integer id) {
+	public TravelAgentDto findById(Integer id) {
 		
-		return this.repo.findById(id)
+		TravelAgent found = this.repo.findById(id)
 				 .orElseThrow(()-> new RuntimeException("Element with  Id=>"+id+ "Not Present"));
 		
+		return mapper.toDto(found);
 	}
 }
