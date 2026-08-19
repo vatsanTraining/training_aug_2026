@@ -43,7 +43,7 @@ public class TravelAgentService {
 	public TravelAgentDto findById(Integer id) {
 		
 		TravelAgent found = this.repo.findById(id)
-				 .orElseThrow(()-> new RuntimeException("Element with  Id=>"+id+ "Not Present"));
+				 .orElseThrow(()-> new RuntimeException("Element with  Id:= "+id+ " SNot Present"));
 		
 		return mapper.toDto(found);
 	}
