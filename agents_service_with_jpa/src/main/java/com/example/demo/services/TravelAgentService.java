@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,12 @@ public class TravelAgentService {
 	public List<TravelAgent> findAll(){
 		
 		return this.repo.findAll();
+	}
+	
+	public TravelAgent findById(Integer id) {
+		
+		return this.repo.findById(id)
+				 .orElseThrow(()-> new RuntimeException("Element with  Id=>"+id+ "Not Present"));
+		
 	}
 }
