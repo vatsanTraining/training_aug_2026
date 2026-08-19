@@ -19,10 +19,12 @@ public class AgentsServiceWithJpaApplication {
 	}
 
 	
-	@Bean
-	CommandLineRunner runner(TravelAgentService service) {
-		
-		return args -> service.save(new TravelAgent("Ramesh", 8999494, LocalDate.now(), AgentRole.MANAGER));
-		
-	}
+//	@Bean
+//	CommandLineRunner runner(TravelAgentService service) {
+//		
+//		//return args -> service.save(new TravelAgent("Kamesh", 7999494, LocalDate.now(), AgentRole.SENIOR));
+//	
+//		 return args -> service.findAll().forEach(System.out::println);
+//		
+//	}
 }
