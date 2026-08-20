@@ -48,10 +48,14 @@ public class SecurityConfig {
 		
 		http.csrf(cust -> cust.disable())
 		.authorizeHttpRequests(auth -> 
-		  auth.requestMatchers(HttpMethod.GET, "/api/v2/agents/**").permitAll()
+		  auth.requestMatchers(HttpMethod.GET, "/api/v2/agents/**","/h2-console").permitAll()
 		  .anyRequest().authenticated())
 		  .httpBasic(Customizer.withDefaults());
+		
+		http.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()));
 		
 		return http.build();
 	}
 }
+
+
