@@ -1,18 +1,13 @@
 package com.example.demo;
 
-import java.time.LocalDate;
-
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
-import com.example.demo.dto.TravelAgentDto;
-import com.example.demo.entity.TravelAgent;
-import com.example.demo.enums.AgentRole;
-import com.example.demo.services.TravelAgentService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
+@OpenAPIDefinition(info = @Info(title = "Travel Agent API",version = "1.0"))
 public class AgentsServiceWithJpaApplication {
 
 	public static void main(String[] args) {

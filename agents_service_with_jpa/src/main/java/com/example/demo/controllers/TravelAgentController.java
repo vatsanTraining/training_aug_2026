@@ -61,7 +61,7 @@ public class TravelAgentController {
 		   return ResponseEntity.created(location).body(saved);
 	 }
 	 
-	 @PutMapping(path = "/{id}")
+	   @PutMapping(path = "/{id}")
 	    public ResponseEntity<TravelAgentDto> update(@PathVariable Integer id, @RequestBody TravelAgentDto dto) {
 	        TravelAgentDto updated = this.service.update(id, dto);
 	        return ResponseEntity.ok(updated);
