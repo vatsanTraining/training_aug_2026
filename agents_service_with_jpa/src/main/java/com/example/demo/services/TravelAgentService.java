@@ -43,14 +43,47 @@ public class TravelAgentService {
 	public TravelAgentDto findById(Integer id) {
 		
 		TravelAgent found = this.repo.findById(id)
-				 .orElseThrow(()-> new RuntimeException("Element with  Id:= "+id+ " SNot Present"));
+				 .orElseThrow(()-> new RuntimeException("Element with  Id:= "+id+ " Not Present"));
 		
 		return mapper.toDto(found);
 	}
 
 
-	public void remove(Integer id) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void remove(Integer id) {
+    	
+        if (!this.repo.existsById(id)) {
+            throw new RuntimeException("Element with Id:= " + id + " Not Present");
+        }
+        this.repo.deleteById(id);
+    }
+
+    public TravelAgentDto update(Integer id, TravelAgentDto dtoUpdate) {
+    	
+        TravelAgent existingAgent = this.repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Element with Id:= " + id + " Not Present"));
+        
+        existingAgent.setFirstName(dtoUpdate.firstName());
+        existingAgent.setPhoneNumber(dtoUpdate.phoneNumber());
+        existingAgent.setDateOfBirth(dtoUpdate.dateOfBirth());
+        existingAgent.setRole(dtoUpdate.role());
+        
+        TravelAgent updated = this.repo.save(existingAgent);
+        return mapper.toDto(updated);
+    }
+    
+
+    public TravelAgentDto partialUpdate(Integer id, long phoneNumber) {
+        TravelAgent existingAgent = this.repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("with Id:= " + id + " Not Present"));
+        
+        existingAgent.setPhoneNumber(phoneNumber);
+        
+        TravelAgent updated = this.repo.save(existingAgent);
+        return mapper.toDto(updated);
+    }
+
+
+
+
+
 }

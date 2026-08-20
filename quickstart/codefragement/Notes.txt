@@ -8,3 +8,35 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
 spring.h2.console.enabled=true
 	
+
+			 <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator-annotation-processor</artifactId>
+      </dependency>
+      
+      <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>3.0.1</version>
+      </dependency>
+      
+      
+    @NotBlank(message = "First name is required")
+    @Size(min = 2, max = 50, message = "First name must be between 2 and 50 characters")
+    String firstName,
+    
+    @NotBlank(message = "Phone number is required")
+    @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
+    String phoneNumber, 
+    
+    @NotNull(message = "Date of birth is required")
+    @Past(message = "Date of birth must be in the past")
+    LocalDate dateOfBirth,
+    
+    @NotNull(message = "Agent role is required")
+    AgentRole role      

@@ -1,9 +1,8 @@
 package com.example.demo.controllers;
 
+import java.net.URI;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.services.TravelAgentService;
@@ -50,26 +51,33 @@ public class TravelAgentController {
 		 
 		    TravelAgentDto saved = this.service.save(dto);
 		    
-		    // Link to the newly created resource
 		    
-		   return ResponseEntity.status(201).body(saved);
+		    URI location = ServletUriComponentsBuilder
+		    		.fromCurrentRequest()
+		    		.path("{/id}")
+		    		.buildAndExpand(saved.id())
+		    		.toUri();
+		    
+		   return ResponseEntity.created(location).body(saved);
 	 }
 	 
-//	 @PutMapping
-//	 
-//	 @PatchMapping
-//	 
-	 @DeleteMapping
-	 public ResponseEntity<Void> remove(@PathVariable Integer id){
-		 
-		 this.service.remove(id);
-		 
-		 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-		 
-		 
-		 
-	 }
-	 
+	 @PutMapping(path = "/{id}")
+	    public ResponseEntity<TravelAgentDto> update(@PathVariable Integer id, @RequestBody TravelAgentDto dto) {
+	        TravelAgentDto updated = this.service.update(id, dto);
+	        return ResponseEntity.ok(updated);
+	    }
+
+	    @PatchMapping(path = "/{id}")
+	    public ResponseEntity<TravelAgentDto> partialUpdate(@PathVariable Integer id, @RequestParam long phoneNumber) {
+	        TravelAgentDto updated = this.service.partialUpdate(id, phoneNumber);
+	        return ResponseEntity.ok(updated);
+	    }
+
+	    @DeleteMapping(path = "/{id}")
+	    public ResponseEntity<Void> remove(@PathVariable Integer id) {
+	        this.service.remove(id);
+	        return ResponseEntity.noContent().build();
+	    }	 
 	 
 	 
 	 

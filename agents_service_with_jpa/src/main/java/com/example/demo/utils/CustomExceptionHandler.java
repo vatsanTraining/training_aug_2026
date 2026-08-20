@@ -16,14 +16,17 @@ public class CustomExceptionHandler {
 
 	
 	@ExceptionHandler(exception = RuntimeException.class)
-	public ResponseEntity<HashMap<String,String>> handleException(Exception e,WebRequest req){
+	public ResponseEntity<HashMap<String,String>> handleException(RuntimeException ex,WebRequest req){
 		
 		HashMap<String, String> exceptionMap = new HashMap<>();
 		
-		exceptionMap.put("cause", e.getMessage());
-		exceptionMap.put("time", LocalDateTime.now().toString());
-		exceptionMap.put("request", req.getDescription(false));
 		
+        exceptionMap.put("time", LocalDateTime.now().toString());
+        exceptionMap.put("status", String.valueOf(HttpStatus.NOT_FOUND.value()));
+        exceptionMap.put("error", "Resource Not Found / Invalid Request");
+        exceptionMap.put("cause", ex.getMessage());
+        exceptionMap.put("path", req.getDescription(false).replace("uri=", ""));
+
 		
 		return ResponseEntity
 				 .status(HttpStatus.BAD_REQUEST)
