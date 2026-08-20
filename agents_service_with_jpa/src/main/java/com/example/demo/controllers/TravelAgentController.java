@@ -54,7 +54,7 @@ public class TravelAgentController {
 		    
 		    URI location = ServletUriComponentsBuilder
 		    		.fromCurrentRequest()
-		    		.path("{/id}")
+		    		.path("/{id}")
 		    		.buildAndExpand(saved.id())
 		    		.toUri();
 		    
