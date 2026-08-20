@@ -21,6 +21,8 @@ import com.example.demo.dto.AddressBookDto;
 import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.services.TravelAgentService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/api/v1/agents")
 public class TravelAgentController {
@@ -67,7 +69,7 @@ public class TravelAgentController {
  
 	 
 	 @PostMapping
-	 public ResponseEntity<TravelAgentDto> save(@RequestBody TravelAgentDto dto){
+	 public ResponseEntity<TravelAgentDto> save(@Valid @RequestBody TravelAgentDto dto){
 		 
 		    TravelAgentDto saved = this.service.save(dto);
 		    
