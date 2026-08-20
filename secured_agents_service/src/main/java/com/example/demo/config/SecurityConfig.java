@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password4j.BcryptPassword4jPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -49,7 +48,7 @@ public class SecurityConfig {
 		
 		http.csrf(cust -> cust.disable())
 		.authorizeHttpRequests(auth -> 
-		  auth.requestMatchers(HttpMethod.GET, "/api/v1/agents/**").permitAll()
+		  auth.requestMatchers(HttpMethod.GET, "/api/v2/agents/**").permitAll()
 		  .anyRequest().authenticated())
 		  .httpBasic(Customizer.withDefaults());
 		
