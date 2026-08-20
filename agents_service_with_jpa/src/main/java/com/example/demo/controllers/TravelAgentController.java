@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.demo.dto.AddressBookDto;
 import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.services.TravelAgentService;
 
@@ -59,7 +60,7 @@ public class TravelAgentController {
 	 }
 
 	 @GetMapping(path = "/srch/dateOfBirth")
-	 public ResponseEntity<List<TravelAgentDto>> findByDateOfBirth(@RequestParam LocalDate date){
+	 public ResponseEntity<List<AddressBookDto>> findByDateOfBirth(@RequestParam LocalDate date){
 		 
 		 return ResponseEntity.ok(service.getByDateOfBirth(date));
 	 }

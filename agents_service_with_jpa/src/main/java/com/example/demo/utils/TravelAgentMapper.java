@@ -2,6 +2,7 @@ package com.example.demo.utils;
 
 import org.springframework.stereotype.Component;
 
+import com.example.demo.dto.AddressBookDto;
 import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.entity.TravelAgent;
 
@@ -21,4 +22,5 @@ public class TravelAgentMapper {
 				entity.getFirstName(), entity.getPhoneNumber(), 
 				entity.getDateOfBirth(), entity.getRole());
 	}
+	
 }

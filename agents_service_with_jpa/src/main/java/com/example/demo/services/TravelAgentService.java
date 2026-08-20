@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.AddressBookDto;
 import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.entity.TravelAgent;
 import com.example.demo.repos.AgentRepository;
@@ -98,10 +99,18 @@ public List<TravelAgentDto> findByIdGrtThan(Integer id){
       }
 
 
-public List<TravelAgentDto> getByDateOfBirth(LocalDate date){
+//public List<TravelAgentDto> getByDateOfBirth(LocalDate date){
+//	  
+//	  return this.repo.getByDateOfBirth(date).stream()
+//	                .map(mapper::toDto).toList();
+//}
+
+public List<AddressBookDto> getByDateOfBirth(LocalDate date){
 	  
-	  return this.repo.getByDateOfBirth(date).stream()
-	                .map(mapper::toDto).toList();
+	   this.repo.findByDateOfBirth(date).forEach(System.out::println);
+	   
+	  return this.repo.findByDateOfBirth(date);
+			  
 }
 
 
