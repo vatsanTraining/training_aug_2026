@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,24 @@ public class TravelAgentController {
 		 return ResponseEntity.ok(service.findById(id));
 	 }
 	 
+	 @GetMapping(path = "/srch/firstName/{name}")
+	 public ResponseEntity<List<TravelAgentDto>> findByFirstName(@PathVariable String name){
+		 
+		 return ResponseEntity.ok(service.findByFirstName(name));
+	 }
+
+	 @GetMapping(path = "/srch/grThanId/{id}")
+	 public ResponseEntity<List<TravelAgentDto>> findByIdGrtThan(@PathVariable int id){
+		 
+		 return ResponseEntity.ok(service.findByIdGrtThan(id));
+	 }
+
+	 @GetMapping(path = "/srch/dateOfBirth")
+	 public ResponseEntity<List<TravelAgentDto>> findByDateOfBirth(@RequestParam LocalDate date){
+		 
+		 return ResponseEntity.ok(service.getByDateOfBirth(date));
+	 }
+ 
 	 
 	 @PostMapping
 	 public ResponseEntity<TravelAgentDto> save(@RequestBody TravelAgentDto dto){

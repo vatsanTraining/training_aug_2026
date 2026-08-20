@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +85,24 @@ public class TravelAgentService {
 
 
 
+      public List<TravelAgentDto> findByFirstName(String firstName){
+    	  
+    	  return this.repo.findByFirstName(firstName).stream()
+    	                .map(mapper::toDto).toList();
+      }
+
+public List<TravelAgentDto> findByIdGrtThan(Integer id){
+    	  
+    	  return this.repo.idGrtThan(id).stream()
+    	                .map(mapper::toDto).toList();
+      }
+
+
+public List<TravelAgentDto> getByDateOfBirth(LocalDate date){
+	  
+	  return this.repo.getByDateOfBirth(date).stream()
+	                .map(mapper::toDto).toList();
+}
 
 
 }
