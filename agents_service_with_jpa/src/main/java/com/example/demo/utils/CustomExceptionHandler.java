@@ -2,6 +2,7 @@ package com.example.demo.utils;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.method.MethodValidationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -37,11 +39,11 @@ public class CustomExceptionHandler {
 		
 	}
 	
-	@ExceptionHandler(exception = MethodValidationException.class)
+	@ExceptionHandler(exception = MethodArgumentNotValidException.class)
 	public ResponseEntity<HashMap<String, String>> handleValidation(BindException ex, WebRequest req)
 	{
 		
-		HashMap<String, String> exceptionMap = new HashMap<>();
+		HashMap<String, String> exceptionMap = new LinkedHashMap<>();
 		
 		ex.getBindingResult().getFieldErrors()
 		  .forEach(error -> exceptionMap.put(error.getField(), error.getDefaultMessage()));
