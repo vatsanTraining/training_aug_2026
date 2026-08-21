@@ -2,15 +2,18 @@ package com.example.demo.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.AddressBookDto;
 import com.example.demo.dto.TravelAgentDto;
 import com.example.demo.entity.TravelAgent;
+import com.example.demo.enums.AgentRole;
 import com.example.demo.repos.AgentRepository;
 import com.example.demo.utils.TravelAgentMapper;
 
@@ -101,13 +104,13 @@ public List<TravelAgentDto> findByIdGrtThan(Integer id){
       }
 
 
-//public List<TravelAgentDto> getByDateOfBirth(LocalDate date){
-//	  
-//	  return this.repo.getByDateOfBirth(date).stream()
-//	                .map(mapper::toDto).toList();
-//}
+public List<TravelAgentDto> getByDateOfBirth(LocalDate date){
+	  
+	  return this.repo.getByDateOfBirth(date).stream()
+	                .map(mapper::toDto).toList();
+}
 
-public List<AddressBookDto> getByDateOfBirth(LocalDate date){
+public List<AddressBookDto> findByDateOfBirth(LocalDate date){
 	  
 	   this.repo.findByDateOfBirth(date).forEach(System.out::println);
 	   
@@ -115,23 +118,30 @@ public List<AddressBookDto> getByDateOfBirth(LocalDate date){
 			  
 }
 
-
-  // sort by firstName
-
-
-public void dummy() {
-	
-	this.repo.findAll(Sort.by("firstName"));
-	
+public List<TravelAgentDto> findAllSortedByFirstName() {
+    Sort sort = Sort.by(Sort.Direction.ASC, TravelAgent::getFirstName);
+    return this.repo.findAll(sort)
+            .stream()
+            .map(mapper::toDto)
+            .toList();
 }
 
-// pagination
+public Page<TravelAgentDto> findAllPaginatedAndSorted(int pageNumber, int pageSize, String sortBy, String direction) {
 
+	Sort sort = direction.equalsIgnoreCase(Sort.Direction.DESC.name()) 
+                ? Sort.by(sortBy).descending() 
+                : Sort.by(sortBy).ascending();
+    
+    Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+    
+    Page<TravelAgent> entityPage = this.repo.findAll(pageable);
+    
+    return entityPage.map(mapper::toDto);
+}
 
-public void dummyforpaging() {
-	
-	//this.repo.findAll();
-	
+@Transactional
+public int updateRoleByFirstName(AgentRole role, String firstName) {
+    return this.repo.updateRoleByFirstName(role, firstName);
 }
 
 }
