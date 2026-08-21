@@ -17,7 +17,7 @@ security =@SecurityRequirement(name = "BasicAuth")
 @SecurityScheme(
 	    name = "BasicAuth",
 	    type = SecuritySchemeType.HTTP,
-	    scheme = "basic", // Configures standard HTTP Basic Authentication
+	    scheme = "basic", 
 	    description = "Enter your system credentials (e.g., india / india) to execute state-changing requests."
 	)
 
